@@ -17,7 +17,43 @@ export default function App() {
               component={CursoStack}
               options={{
                 tabBarIcon: () => (
-                  <MaterialCommunityIcons name="movie-open" size={26} />
+                  <MaterialCommunityIcons name="bookshelf" size={26} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Disciplinas" 
+              component={CursoStack}
+              options={{
+                tabBarIcon: () => (
+                  <MaterialCommunityIcons name="book-open-variant" size={26} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Alunos" 
+              component={CursoStack}
+              options={{
+                tabBarIcon: () => (
+                  <MaterialCommunityIcons name="human-handsup" size={26} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Professores" 
+              component={CursoStack}
+              options={{
+                tabBarIcon: () => (
+                  <MaterialCommunityIcons name="account-tie" size={26} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Turmas" 
+              component={CursoStack}
+              options={{
+                tabBarIcon: () => (
+                  <MaterialCommunityIcons name="google-classroom" size={26} />
                 ),
               }}
             />
