@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { PaperProvider } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import CursoStack from './screens/cursos/CursoStack';
+import AlunosStack from './screens/alunos/AlunosStack';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -32,7 +33,7 @@ export default function App() {
             />
             <Tab.Screen
               name="Alunos" 
-              component={CursoStack}
+              component={AlunosStack}
               options={{
                 tabBarIcon: () => (
                   <MaterialCommunityIcons name="human-handsup" size={26} />
