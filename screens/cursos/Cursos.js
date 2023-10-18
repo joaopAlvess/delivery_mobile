@@ -10,17 +10,22 @@ const Cursos = ({ navigation }) => {
 
   useFocusEffect(
     React.useCallback(() => {
-
-      AsyncStorage.getItem('cursos').then(resultado => {
-
-        resultado = JSON.parse(resultado) || []
-
-        console.log(resultado)
-        setCursos(resultado)
-      })
-
+      carregarDados()
     }, [])
   );
+
+  function carregarDados() {
+    AsyncStorage.getItem('cursos').then(resultado => {
+      resultado = JSON.parse(resultado) || []
+      setCursos(resultado)
+    })
+  }
+
+  function excluir(id) {
+    cursos.splice(id, 1)
+    AsyncStorage.setItem('cursos', JSON.stringify(cursos))
+    carregarDados()
+  }
 
   return (
     <>
@@ -36,7 +41,10 @@ const Cursos = ({ navigation }) => {
             </Card.Content>
             <Card.Actions>
               <IconButton icon='pencil-outline' />
-              <IconButton icon='trash-can-outline' />
+              <IconButton
+                icon='trash-can-outline'
+                onPress={() => excluir(i)}
+              />
             </Card.Actions>
           </Card>
         ))}
