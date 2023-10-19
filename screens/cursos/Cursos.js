@@ -2,11 +2,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { ScrollView, View } from 'react-native'
-import { Button, Card, FAB, IconButton, MD3DarkTheme, Text } from 'react-native-paper'
+import { Button, Card, Dialog, FAB, IconButton, MD3DarkTheme, Portal, Text } from 'react-native-paper'
 
 const Cursos = ({ navigation }) => {
 
   const [cursos, setCursos] = useState([])
+  const [idExcluir, setIdExcluir] = useState(0)
+
+  const [visible, setVisible] = React.useState(false);
+  const showDialog = () => setVisible(true);
+  const hideDialog = () => setVisible(false);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -21,10 +26,16 @@ const Cursos = ({ navigation }) => {
     })
   }
 
-  function excluir(id) {
-    cursos.splice(id, 1)
+  function confirmarExclusao(id) {
+    setIdExcluir(id)
+    setVisible(true)
+  }
+
+  function excluir() {
+    cursos.splice(idExcluir, 1)
     AsyncStorage.setItem('cursos', JSON.stringify(cursos))
     carregarDados()
+    setVisible(false)
   }
 
   return (
@@ -43,12 +54,23 @@ const Cursos = ({ navigation }) => {
               <IconButton icon='pencil-outline' />
               <IconButton
                 icon='trash-can-outline'
-                onPress={() => excluir(i)}
+                onPress={() => confirmarExclusao(i)}
               />
             </Card.Actions>
           </Card>
         ))}
 
+        <Portal>
+          <Dialog visible={visible} onDismiss={hideDialog}>
+            <Dialog.Content>
+              <Text variant="bodyMedium">Deseja realmente excluir o registro?</Text>
+            </Dialog.Content>
+            <Dialog.Actions>
+              <Button onPress={excluir}>Sim</Button>
+              <Button onPress={hideDialog}>Não</Button>
+            </Dialog.Actions>
+          </Dialog>
+        </Portal>
 
       </ScrollView>
 
