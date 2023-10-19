@@ -51,7 +51,10 @@ const Cursos = ({ navigation }) => {
               <Text variant="bodyMedium">Modalidade: {item.modalidade}</Text>
             </Card.Content>
             <Card.Actions>
-              <IconButton icon='pencil-outline' />
+              <IconButton 
+                icon='pencil-outline' 
+                onPress={() => navigation.push('cursos-form', {id: i, curso: item})}
+              />
               <IconButton
                 icon='trash-can-outline'
                 onPress={() => confirmarExclusao(i)}
