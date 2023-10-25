@@ -4,13 +4,22 @@ import { Formik } from 'formik'
 import React, { useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
-import * as Yup from 'yup';
+import cursoValidator from '../../validators/cursoValidator'
 
 const CursosForm = ({ navigation, route }) => {
+  
+  let curso = {
+    nome: '', 
+    duracao: '', 
+    modalidade: ''    
+  }
 
-  const curso = route.params?.curso || {}
   const id = route.params?.id
 
+  if(id){
+    curso = route.params?.curso 
+  }
+  
   function salvar(dados) {
 
     AsyncStorage.getItem('cursos').then(resultado => {
@@ -27,18 +36,7 @@ const CursosForm = ({ navigation, route }) => {
 
       navigation.goBack()
     })
-
   }
-
-  const cursoValidator = Yup.object().shape({
-    nome: Yup.string().strict()
-      .min(5, 'Valor muito curto')
-      .max(10, 'Valor muito grande')
-      .required('Campo obrigatório'),
-    duracao: Yup.number(),
-    modalidade: Yup.string().strict(),
-    teste: Yup.string().strict(),
-  },{ strict: true })
 
   return (
     <ScrollView style={{ margin: 15 }}>
@@ -88,19 +86,6 @@ const CursosForm = ({ navigation, route }) => {
             {(errors.modalidade && touched.modalidade) &&
               <Text style={{color: 'red', marginTop: 5}}>
                 {errors.modalidade}
-              </Text>
-            }
-
-            <TextInput
-              style={{ marginTop: 10 }}
-              mode='outlined'
-              label='teste'
-              value={values.teste}
-              onChangeText={handleChange('teste')}
-            />
-            {(errors.teste && touched.teste) &&
-              <Text style={{color: 'red', marginTop: 5}}>
-                {errors.teste}
               </Text>
             }
 
