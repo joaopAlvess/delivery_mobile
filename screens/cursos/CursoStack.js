@@ -8,7 +8,7 @@ const Stack = createNativeStackNavigator();
 const CursoStack = () => {
     return (
         <>
-            <Stack.Navigator>
+            <Stack.Navigator initialRouteName='cursos-form'>
                 <Stack.Screen name="cursos" component={Cursos} options={{ title: 'Cursos' }} />
                 <Stack.Screen name="cursos-form" component={CursosForm} options={{ title: 'Cursos' }} />
             </Stack.Navigator>
