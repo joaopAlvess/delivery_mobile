@@ -4,9 +4,9 @@ import React, { useEffect, useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import { Button, Card, Dialog, FAB, IconButton, MD3DarkTheme, Portal, Text } from 'react-native-paper'
 
-const Disciplinas = ({ navigation }) => {
+const Produtos = ({ navigation }) => {
 
-  const [disciplinas, setDisciplinas] = useState([])
+  const [produtos, setProdutos] = useState([])
   const [idExcluir, setIdExcluir] = useState(0)
 
   const [visible, setVisible] = React.useState(false);
@@ -20,9 +20,9 @@ const Disciplinas = ({ navigation }) => {
   );
 
   function carregarDados() {
-    AsyncStorage.getItem('disciplinas').then(resultado => {
+    AsyncStorage.getItem('produtos').then(resultado => {
       resultado = JSON.parse(resultado) || []
-      setDisciplinas(resultado)
+      setProdutos(resultado)
     })
   }
 
@@ -32,8 +32,8 @@ const Disciplinas = ({ navigation }) => {
   }
 
   function excluir() {
-    disciplinas.splice(idExcluir, 1)
-    AsyncStorage.setItem('disciplinas', JSON.stringify(disciplinas))
+    produtos.splice(idExcluir, 1)
+    AsyncStorage.setItem('produtos', JSON.stringify(produtos))
     carregarDados()
     setVisible(false)
   }
@@ -43,16 +43,19 @@ const Disciplinas = ({ navigation }) => {
 
       <ScrollView style={{ padding: 15 }}>
 
-        {disciplinas.map((item, i) => (
+        {produtos.map((item, i) => (
           <Card key={i} mode='outlined' style={{ marginBottom: 10 }}>
             <Card.Content>
-              <Text variant="titleLarge">{item.nome}</Text>
-              <Text variant="bodyMedium">Curso: {item.curso_id}</Text>
+              <Text variant="titleLarge">Restaurante: {item.restaurante}</Text>
+              <Text variant="bodyMedium">Nome Produto: {item.nome_produto} sem.</Text>
+              <Text variant="bodyMedium">Preço Produto: {item.preco_produto}</Text>
+              <Text variant="bodyMedium">Informações Pagamento: {item.pagamento}</Text>
+              <Text variant="bodyMedium">Informações Adicionais: {item.informacoes}</Text>
             </Card.Content>
             <Card.Actions>
               <IconButton 
                 icon='pencil-outline' 
-                onPress={() => navigation.push('disciplinas-form', {id: i, disciplina: item})}
+                onPress={() => navigation.push('produtos-form', {id: i, produto: item})}
               />
               <IconButton
                 icon='trash-can-outline'
@@ -80,11 +83,11 @@ const Disciplinas = ({ navigation }) => {
         icon="plus"
         size='small'
         style={{ position: 'absolute', right: 10, bottom: 10 }}
-        onPress={() => navigation.push('disciplinas-form')}
+        onPress={() => navigation.push('produtos-form')}
       />
 
     </>
   )
 }
 
-export default Disciplinas
+export default Produtos;

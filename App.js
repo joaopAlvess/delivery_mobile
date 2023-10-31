@@ -5,6 +5,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import CursoStack from './screens/cursos/CursoStack';
 import AlunosStack from './screens/alunos/AlunosStack';
 import DisciplinaStack from './screens/disciplinas/DisciplinasStack';
+import RestauranteStack from './screens/restaurantes/RestauranteStack';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -53,6 +54,15 @@ export default function App() {
             <Tab.Screen
               name="Turmas" 
               component={CursoStack}
+              options={{
+                tabBarIcon: () => (
+                  <MaterialCommunityIcons name="google-classroom" size={26} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Restaurantes" 
+              component={RestauranteStack}
               options={{
                 tabBarIcon: () => (
                   <MaterialCommunityIcons name="google-classroom" size={26} />
