@@ -47,10 +47,11 @@ const Clientes = ({ navigation }) => {
           <Card key={i} mode='outlined' style={{ marginBottom: 10 }}>
             <Card.Content>
               <Text variant="titleLarge">Nome: {item.nome}</Text>
-              <Text variant="bodyMedium">Email: {item.email}</Text>
               <Text variant="bodyMedium">Contato: {item.contato}</Text>
-              <Text variant="bodyMedium">Endereço: {item.endereco}</Text>
-              <Text variant="bodyMedium">Plano Fidelidade: {item.fidelidade}</Text>
+              <Text variant="bodyMedium">CEP: {item.cep}</Text>
+              <Text variant="bodyMedium">Número: {item.numero}</Text>
+              <Text variant="bodyMedium">Restaurante: {item.restaurante_id}</Text>
+              <Text variant="bodyMedium">Produto: {item.produto_id}</Text>
             </Card.Content>
             <Card.Actions>
               <IconButton 

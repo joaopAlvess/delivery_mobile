@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Formik } from 'formik'
 import React, { useState } from 'react'
 import { Image, ScrollView, StyleSheet, View } from 'react-native'
-import { Button, Text, TextInput } from 'react-native-paper'
+import { Button, RadioButton, Text, TextInput } from 'react-native-paper'
 import restauranteValidator from '../../validators/restauranteValidator'
 import { mask } from 'remask'
 import { Picker } from '@react-native-picker/picker'
@@ -17,10 +17,13 @@ const RestaurantesForm = ({ navigation, route }) => {
     tempo_entrega: '',
     funcionamento: '',
     avaliacao: '',
-    entregador: ''
+    entregador_id: ''
   }
+  const [entregadores, setEntregadores] = useState([])
 
   const [selectedLanguage, setSelectedLanguage] = useState();
+
+  const [checked, setChecked] = React.useState();
 
   const id = route.params?.id
 
@@ -80,27 +83,56 @@ const RestaurantesForm = ({ navigation, route }) => {
               label='Telefone'
               keyboardType='decimal-pad'
               value={values.telefone}
-              onChangeText={handleChange('duracao')}
+              onChangeText={handleChange('telefone')}
             />
-            {(errors.duracao && touched.duracao) &&
+            {(errors.telefone && touched.telefone) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
-                {errors.duracao}
+                {errors.telefone}
               </Text>
             }
 
             <TextInput
               style={{ marginTop: 10 }}
               mode='outlined'
-              label='Cep'
+              label='CEP'
               keyboardType='decimal-pad'
               value={values.cep}
-              onChangeText={handleChange('duracao')}
+              onChangeText={handleChange('cep')}
             />
-            {(errors.duracao && touched.duracao) &&
+            {(errors.cep && touched.cep) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
-                {errors.duracao}
+                {errors.cep}
               </Text>
             }
+
+            <Picker
+              selectedValue={values.tempo_entrega}
+              onValueChange={handleChange('tempo_entrega')}>
+              <Picker.Item label="Tempo em Minutos" value="" />
+              <Picker.Item label="0-20 Minutos" value="" />
+              <Picker.Item label="20-40 Minutos" value="" />
+              <Picker.Item label="40-60 Minutos" value="" />
+            </Picker>
+            {(errors.tempo_entrega && touched.tempo_entrega) &&
+              <Text style={{ color: 'red', marginTop: 5 }}>
+                {errors.tempo_entrega}
+              </Text>
+            }
+
+
+
+            <RadioButton
+              value="first"
+              status={checked === 'first' ? 'checked' : 'unchecked'}
+              onPress={() => setChecked('first')}
+            />
+            <RadioButton
+              value="second"
+              status={checked === 'second' ? 'checked' : 'unchecked'}
+              onPress={() => setChecked('second')}
+            />
+
+
 
             <TextInput
               style={{ marginTop: 10 }}

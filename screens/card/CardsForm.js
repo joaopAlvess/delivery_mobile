@@ -4,16 +4,17 @@ import { Formik } from 'formik'
 import React, { useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
-import cursoValidator from '../../validators/cursoValidator'
+import cardValidator from '../../validators/cardValidator'
 import { mask } from 'remask'
 import { Picker } from '@react-native-picker/picker'
 
-const CursosForm = ({ navigation, route }) => {
+const CardsForm = ({ navigation, route }) => {
 
-  let curso = {
-    nome: '',
-    duracao: '',
-    modalidade: ''
+  let card = {
+    email: '',
+    contato: '',
+    endereco: '',
+    fidelidade: ''
   }
 
   const [selectedLanguage, setSelectedLanguage] = useState();
@@ -21,22 +22,22 @@ const CursosForm = ({ navigation, route }) => {
   const id = route.params?.id
 
   if (id >= 0) {
-    curso = route.params?.curso
+    card = route.params?.card
   }
 
   function salvar(dados) {
 
-    AsyncStorage.getItem('cursos').then(resultado => {
+    AsyncStorage.getItem('cards').then(resultado => {
 
-      const cursos = JSON.parse(resultado) || []
+      const cards = JSON.parse(resultado) || []
 
       if (id >= 0) {
-        cursos.splice(id, 1, dados)
+        cards.splice(id, 1, dados)
       } else {
-        cursos.push(dados)
+        cards.push(dados)
       }
 
-      AsyncStorage.setItem('cursos', JSON.stringify(cursos))
+      AsyncStorage.setItem('cards', JSON.stringify(cards))
 
       navigation.goBack()
     })
@@ -44,11 +45,11 @@ const CursosForm = ({ navigation, route }) => {
 
   return (
     <ScrollView style={{ margin: 15 }}>
-      <Text>Formulário de Curso</Text>
+      <Text>Formulário de card</Text>
 
       <Formik
-        initialValues={curso}
-        validationSchema={cursoValidator}
+        initialValues={card}
+        validationSchema={cardValidator}
         onSubmit={values => salvar(values)}
       >
         {({ values, handleChange, handleSubmit, errors, touched, setFieldValue }) => (
@@ -70,9 +71,46 @@ const CursosForm = ({ navigation, route }) => {
             <TextInput
               style={{ marginTop: 10 }}
               mode='outlined'
-              label='Duração'
+              label='Email'
+              value={values.email}
+              onChangeText={handleChange('duracao')}
+            />
+            {(errors.duracao && touched.duracao) &&
+              <Text style={{ color: 'red', marginTop: 5 }}>
+                {errors.duracao}
+              </Text>
+            }
+
+            <TextInput
+              style={{ marginTop: 10 }}
+              mode='outlined'
+              label='Contato'
               keyboardType='decimal-pad'
-              value={values.duracao}
+              value={values.contato}
+              onChangeText={handleChange('duracao')}
+            />
+            {(errors.duracao && touched.duracao) &&
+              <Text style={{ color: 'red', marginTop: 5 }}>
+                {errors.duracao}
+              </Text>
+            }
+            <TextInput
+              style={{ marginTop: 10 }}
+              mode='outlined'
+              label='Endereço'
+              value={values.endereco}
+              onChangeText={handleChange('duracao')}
+            />
+            {(errors.duracao && touched.duracao) &&
+              <Text style={{ color: 'red', marginTop: 5 }}>
+                {errors.duracao}
+              </Text>
+            }
+            <TextInput
+              style={{ marginTop: 10 }}
+              mode='outlined'
+              label='Cartão Fidelidade'
+              value={values.fidelidade}
               onChangeText={handleChange('duracao')}
             />
             {(errors.duracao && touched.duracao) &&
@@ -107,4 +145,4 @@ const CursosForm = ({ navigation, route }) => {
   )
 }
 
-export default CursosForm
+export default CardsForm

@@ -4,16 +4,21 @@ import { Formik } from 'formik'
 import React, { useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
-import cursoValidator from '../../validators/cursoValidator'
+import clienteValidator from '../../validators/clienteValidator'
 import { mask } from 'remask'
 import { Picker } from '@react-native-picker/picker'
 
-const CursosForm = ({ navigation, route }) => {
+const ClientesForm = ({ navigation, route }) => {
 
-  let curso = {
+  let cliente = {
     nome: '',
-    duracao: '',
-    modalidade: ''
+    contato: '',
+    cep: '',
+    logradouro: '',
+    bairro: '',
+    numero: '',
+    restaurante_id: '',
+    produto_id: ''
   }
 
   const [selectedLanguage, setSelectedLanguage] = useState();
@@ -21,22 +26,22 @@ const CursosForm = ({ navigation, route }) => {
   const id = route.params?.id
 
   if (id >= 0) {
-    curso = route.params?.curso
+    cliente = route.params?.cliente
   }
 
   function salvar(dados) {
 
-    AsyncStorage.getItem('cursos').then(resultado => {
+    AsyncStorage.getItem('clientes').then(resultado => {
 
-      const cursos = JSON.parse(resultado) || []
+      const clientes = JSON.parse(resultado) || []
 
       if (id >= 0) {
-        cursos.splice(id, 1, dados)
+        clientes.splice(id, 1, dados)
       } else {
-        cursos.push(dados)
+        clientes.push(dados)
       }
 
-      AsyncStorage.setItem('cursos', JSON.stringify(cursos))
+      AsyncStorage.setItem('clientes', JSON.stringify(clientes))
 
       navigation.goBack()
     })
@@ -44,11 +49,11 @@ const CursosForm = ({ navigation, route }) => {
 
   return (
     <ScrollView style={{ margin: 15 }}>
-      <Text>Formulário de Curso</Text>
+      <Text>Formulário de cliente</Text>
 
       <Formik
-        initialValues={curso}
-        validationSchema={cursoValidator}
+        initialValues={cliente}
+        validationSchema={clienteValidator}
         onSubmit={values => salvar(values)}
       >
         {({ values, handleChange, handleSubmit, errors, touched, setFieldValue }) => (
@@ -70,11 +75,105 @@ const CursosForm = ({ navigation, route }) => {
             <TextInput
               style={{ marginTop: 10 }}
               mode='outlined'
-              label='Duração'
+              label='Contato'
               keyboardType='decimal-pad'
-              value={values.duracao}
+              value={values.contato}
               onChangeText={handleChange('duracao')}
             />
+            {(errors.duracao && touched.duracao) &&
+              <Text style={{ color: 'red', marginTop: 5 }}>
+                {errors.duracao}
+              </Text>
+            }
+
+            <TextInput
+              style={{ marginTop: 10 }}
+              mode='outlined'
+              label='CEP'
+              keyboardType='decimal-pad'
+              value={values.cep}
+              onChangeText={handleChange('duracao')}
+            />
+            {(errors.duracao && touched.duracao) &&
+              <Text style={{ color: 'red', marginTop: 5 }}>
+                {errors.duracao}
+              </Text>
+            }
+
+            <TextInput
+              style={{ marginTop: 10 }}
+              mode='outlined'
+              label='Logradouro'
+              value={values.logradouro}
+              onChangeText={handleChange('duracao')}
+            />
+            {(errors.duracao && touched.duracao) &&
+              <Text style={{ color: 'red', marginTop: 5 }}>
+                {errors.duracao}
+              </Text>
+            }
+
+            <TextInput
+              style={{ marginTop: 10 }}
+              mode='outlined'
+              label='Bairro'
+              value={values.bairro}
+              onChangeText={handleChange('duracao')}
+            />
+            {(errors.duracao && touched.duracao) &&
+              <Text style={{ color: 'red', marginTop: 5 }}>
+                {errors.duracao}
+              </Text>
+            }
+
+            <TextInput
+              style={{ marginTop: 10 }}
+              mode='outlined'
+              label='Número'
+              keyboardType='decimal-pad'
+              value={values.numero}
+              onChangeText={handleChange('duracao')}
+            />
+            {(errors.duracao && touched.duracao) &&
+              <Text style={{ color: 'red', marginTop: 5 }}>
+                {errors.duracao}
+              </Text>
+            }
+
+            <Picker
+              style={{ marginTop: 10, padding: 10, fontSize: 15 }}
+              selectedValue={values.restaurante_id}
+              onValueChange={handleChange('restaurante_id')
+              }>
+              <Picker.Item label='Curso' value='' />
+              {cursos.map((item, i) => (
+                <Picker.Item key={i}
+                  label={item.nome}
+                  value={item.nome}
+                />
+              ))}
+
+            </Picker>
+            {(errors.duracao && touched.duracao) &&
+              <Text style={{ color: 'red', marginTop: 5 }}>
+                {errors.duracao}
+              </Text>
+            }
+            
+            <Picker
+              style={{ marginTop: 10, padding: 10, fontSize: 15 }}
+              selectedValue={values.produto_id}
+              onValueChange={handleChange('produto_id')
+              }>
+              <Picker.Item label='Curso' value='' />
+              {cursos.map((item, i) => (
+                <Picker.Item key={i}
+                  label={item.nome}
+                  value={item.nome}
+                />
+              ))}
+
+            </Picker>
             {(errors.duracao && touched.duracao) &&
               <Text style={{ color: 'red', marginTop: 5 }}>
                 {errors.duracao}
@@ -93,7 +192,7 @@ const CursosForm = ({ navigation, route }) => {
               <Text style={{ color: 'red', marginTop: 5 }}>
                 {errors.modalidade}
               </Text>
-            }            
+            }
 
             <Button onPress={handleSubmit}>Salvar</Button>
           </View>
@@ -107,4 +206,4 @@ const CursosForm = ({ navigation, route }) => {
   )
 }
 
-export default CursosForm
+export default ClientesForm

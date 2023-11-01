@@ -1,13 +1,11 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react'
-import Cursos from './Cursos';
-import CursosForm from './CursosForm';
 import Entregadores from './Entregadores';
 import EntregadorsForm from './EntregadoresForm';
 
 const Stack = createNativeStackNavigator();
 
-const CursoStack = () => {
+const EntregadorStack = () => {
     return (
         <>
             <Stack.Navigator initialRouteName='cursos'>
@@ -18,4 +16,4 @@ const CursoStack = () => {
     )
 }
 
-export default CursoStack
+export default EntregadorStack

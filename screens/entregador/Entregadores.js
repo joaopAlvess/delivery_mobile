@@ -47,8 +47,8 @@ const Entregadores = ({ navigation }) => {
           <Card key={i} mode='outlined' style={{ marginBottom: 10 }}>
             <Card.Content>
               <Text variant="titleLarge">{item.nome}</Text>
+              <Text variant="bodyMedium">Email: {item.email}</Text>
               <Text variant="bodyMedium">Telefone: {item.telefone}</Text>
-              <Text variant="bodyMedium">Restaurante: {item.restaurante}</Text>
               <Text variant="bodyMedium">CPF: {item.cpf}</Text>
             </Card.Content>
             <Card.Actions>

@@ -11,7 +11,7 @@ import { Picker } from '@react-native-picker/picker'
 const ProdutosForm = ({ navigation, route }) => {
 
   let produto = {
-    restaurante: '',
+    restaurante_id: '',
     nome_produto: '',
     preco_produto: '',
     pagamento: '',
@@ -56,6 +56,22 @@ const ProdutosForm = ({ navigation, route }) => {
         {({ values, handleChange, handleSubmit, errors, touched, setFieldValue }) => (
           <View>
 
+
+            <Picker
+              style={{ marginTop: 10, padding: 10, fontSize: 15 }}
+              selectedValue={values.restaurante_id}
+              onValueChange={handleChange('restaurante_id')
+              }>
+              <Picker.Item label='Restaurante' value='' />
+              {cursos.map((item, i) => (
+                <Picker.Item key={i}
+                  label={item.nome}
+                  value={item.nome}
+                />
+              ))}
+            </Picker>
+
+
             <TextInput
               style={{ marginTop: 10 }}
               mode='outlined'
@@ -69,18 +85,6 @@ const ProdutosForm = ({ navigation, route }) => {
               </Text>
             }
 
-            <TextInput
-              style={{ marginTop: 10 }}
-              mode='outlined'
-              label='Nome Produto'
-              value={values.nome_produto}
-              onChangeText={handleChange('duracao')}
-            />
-            {(errors.duracao && touched.duracao) &&
-              <Text style={{ color: 'red', marginTop: 5 }}>
-                {errors.duracao}
-              </Text>
-            }
             <TextInput
               style={{ marginTop: 10 }}
               mode='outlined'
@@ -145,7 +149,7 @@ const ProdutosForm = ({ navigation, route }) => {
               <Text style={{ color: 'red', marginTop: 5 }}>
                 {errors.modalidade}
               </Text>
-            }            
+            }
 
             <Button onPress={handleSubmit}>Salvar</Button>
           </View>
